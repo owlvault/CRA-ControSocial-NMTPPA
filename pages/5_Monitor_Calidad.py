@@ -42,7 +42,7 @@ with col_logo:
         st.image("image/Logo_CRA.png", use_container_width=True)
 with col_title:
     st.title("🩺 SABIA: Módulo de Observabilidad y Sincronía")
-    st.markdown("**Auditoría temporal: Integridad de Caché vs. Base Documental Oficial (RAG).**")
+    st.markdown("**Auditoría rápida: Verificación de sincronía entre el Excel Original y la Base Documental Oficial.**")
 
 # ==========================================
 # 2. MOTOR DE AUDITORÍA
@@ -155,7 +155,7 @@ col1, col2 = st.columns(2)
 with col1:
     if needs_nlp:
         st.error("👉 **BLOQUEO EN RED NEURONAL:**\nLa topología requiere compilación forzosa.")
-        if st.button("Lanzar Consola de Recalibración (NLP)", type="primary"):
+        if st.button("Lanzar Consola de Recálculo y Verificación", type="primary"):
             st.switch_page("pages/4_Administracion.py")
     else:
         st.success("✅ **Tensor Aprobado:** Pipeline Analítico sano.")

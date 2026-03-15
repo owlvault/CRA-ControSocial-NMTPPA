@@ -69,7 +69,7 @@ def load_noise_data():
 df_full, df_ruido = load_noise_data()
 
 if df_ruido is None:
-    st.warning("⚠️ Módulo inactivo. Compile primero el orquestador TDA en el Panel de Administración.")
+    st.warning("⚠️ Módulo inactivo. Ejecute primero el Cálculo Inteligente en el Panel de Administración.")
     st.stop()
 
 if df_ruido.empty:

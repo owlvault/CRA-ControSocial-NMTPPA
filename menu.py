@@ -23,18 +23,18 @@ def render_menu():
         
         # Flujo 1: Análisis y Exploración TDA
         st.markdown("---")
-        st.markdown("**1. Topología y Exploración**")
+        st.markdown("**1. Agrupación y Análisis**")
         st.page_link("pages/3_Analitica_Avanzada.py", label="Analítica Avanzada", icon="🔬")
-        st.page_link("pages/2_Grafos_Topologicos.py", label="Cartografía Relacional", icon="🕸️")
-        st.page_link("pages/8_Explorador_Microclusters.py", label="Lente Micro-Clústeres", icon="🔍")
-        st.page_link("pages/7_Analisis_Sentimiento.py", label="Auditoría Térmica", icon="🌡️")
+        st.page_link("pages/2_Grafos_Topologicos.py", label="Mapa de Relaciones Normativas", icon="🕸️")
+        st.page_link("pages/8_Explorador_Microclusters.py", label="Análisis Detallado de Temas", icon="🔍")
+        st.page_link("pages/7_Analisis_Sentimiento.py", label="Termómetro Ciudadano", icon="🌡️")
         
         # Flujo 2: Acción Institucional 
         st.markdown("---")
         st.markdown("**2. Respuestas Institucionales**")
         st.page_link("pages/1_Gestion_Respuestas.py", label="Gestión de Acuerdos", icon="⚖️")
-        st.page_link("pages/6_Generador_Borradores.py", label="LLM Cero-Alucinación", icon="🤖")
-        st.page_link("pages/9_Consultas_Individuales.py", label="Casos Singulares (Ruido)", icon="👤")
+        st.page_link("pages/6_Generador_Borradores.py", label="Asistente IA de Redacción", icon="🤖")
+        st.page_link("pages/9_Consultas_Individuales.py", label="Casos Atípicos o Únicos", icon="👤")
         
         # Flujo 3: Administración (Agrupada en Expander para limpieza UX)
         st.markdown("---")

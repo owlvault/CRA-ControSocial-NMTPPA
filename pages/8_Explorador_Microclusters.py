@@ -38,10 +38,10 @@ with col_logo:
     if os.path.exists("image/Logo_CRA.png"):
         st.image("image/Logo_CRA.png", use_container_width=True)
 with col_title:
-    st.title("🔬 SABIA: Lente Fractal de Micro-Clústeres")
-    st.markdown("**Deep Dive TDA. Detección de sub-facciones y disidencias estructurales.**")
+    st.title("🔬 SABIA: Lente Fractal de Micro-Grupos")
+    st.markdown("**Estudio a Profundidad. Detección de sub-grupos y demandas particulares en la población.**")
 
-st.markdown("Herramienta sociológica avanzada: Permite aislar un Macro-Clúster (Ej. 300 personas) y aplicar recursivamente un **segundo zoom topológico** (K-Means/UMAP local) para descubrir matices o demandas ocultas en dicha agrupación poblacional.")
+st.markdown("Herramienta sociológica avanzada: Permite aislar un Tema Ciudadano (Ej. 300 personas) y aplicar automáticamente un **segundo nivel de división matemática local** para descubrir matices o demandas ocultas dentro de un mismo grupo poblacional.")
 st.divider()
 
 # ==========================================
@@ -104,7 +104,7 @@ with colA:
     """, unsafe_allow_html=True)
 
 with colB:
-    st.markdown("### 2. Fracturación de la Sub-Masa (K-Means Local)")
+    st.markdown("### 2. Fracturación del Grupo Principal (División Automática)")
     st.markdown("Parametriza el nivel de fricción interna. ¿Cuántas sub-facciones crees que componen este grupo?")
     
     col_sli, col_btn = st.columns([2, 1])
@@ -113,7 +113,7 @@ with colB:
     with col_btn:
         st.markdown("<br>", unsafe_allow_html=True)
         if st.button("🧬 Ejecutar Lente Topológico", type="primary", use_container_width=True):
-            with st.spinner("Descomponiendo tensores y recalibrando K-Means local..."):
+            with st.spinner("Leyendo información particular y dividiendo la población seleccionada..."):
                 from sklearn.cluster import KMeans
                 import umap
                 

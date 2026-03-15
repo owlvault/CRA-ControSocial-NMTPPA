@@ -49,7 +49,7 @@ with col_logo:
     if os.path.exists("image/Logo_CRA.png"):
         st.image("image/Logo_CRA.png", use_container_width=True)
 with col_title:
-    st.title("🔬 SABIA: Analítica Avanzada TDA")
+    st.title("🔬 SABIA: Analítica y Agrupamiento Avanzado")
     st.markdown("**Sistema de Análisis Basado en Inteligencia Artificial - Participación NMTPPA**")
 
 # ==========================================
@@ -187,7 +187,7 @@ with tab2:
     st.plotly_chart(fig_heat, use_container_width=True)
 
 with tab3:
-    st.subheader("Lexicón: Frecuencia Termodinámica (TF-IDF)")
+    st.subheader("Diccionario Integral: Extracción de Palabras Clave")
     if modo_cientifico:
          top_n_terms = st.slider("Términos por Clúster", 5, 20, 10)
     else:

@@ -63,7 +63,7 @@ else:
     n_neighbors_umap = 15
     min_dist_umap = 0.1
     k_forces = 0.8
-    st.sidebar.info("Vista optimizada para perfiles jurídicos. Las físicas de red y parámetros UMAP han sido abstraídos.")
+    st.sidebar.info("Vista optimizada para perfiles jurídicos. La complejidad matemática y los algoritmos subyacentes operan en segundo plano.")
 
 # ==========================================
 # 3. NÚCLEO MATEMÁTICO (Caché optimizado)
@@ -142,7 +142,7 @@ if err:
 # ==========================================
 # 4. CAPA DE PRESENTACIÓN PÚBLICA (TABS UX)
 # ==========================================
-tabs = st.tabs(["🕸️ Red Normativa vs Clústeres", "🗺️ Cartografía Plana UMAP", "📊 Diagnóstico Demográfico"])
+tabs = st.tabs(["🕸️ Red Normativa vs Temas Ciudadanos", "🗺️ Mapa 2D de Agrupaciones", "📊 Diagnóstico Demográfico"])
 
 # Tab 1: RED BI-PARTITA (NetworkX) UX Limpio
 with tabs[0]:
@@ -150,7 +150,7 @@ with tabs[0]:
     st.markdown("Visualice con qué intensidad los diferentes Clústeres Nacionales intersectan (y exigen respuesta) a resoluciones y decretos puntuales del Acervo Normativo Histórico.")
     
     if not cluster_docs:
-         st.warning("No se encontraron referencias normativas (RAG) para graficar.")
+         st.warning("No se encontraron referencias ni sustentos normativos para esta vista.")
     else:
         G = nx.Graph()
         

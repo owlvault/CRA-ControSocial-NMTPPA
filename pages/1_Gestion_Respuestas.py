@@ -156,7 +156,7 @@ with col_info:
     with st.expander("📝 Síntesis de la Inquietud Ciudadana", expanded=True):
         st.info(c_data['sintesis'])
         
-    with st.expander("⚖️ Mapeo RAG (Sustento Normativo Histórico)", expanded=True):
+    with st.expander("⚖️ Mapeo Normativo (Sustentos y Relaciones Institucionales)", expanded=True):
         if not c_data['sustento']:
             st.warning("Sin intersección normativa detectada en documentos base.")
         for ref in c_data['sustento']:

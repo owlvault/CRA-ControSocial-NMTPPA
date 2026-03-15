@@ -41,7 +41,7 @@ with col_logo:
         st.image("image/Logo_CRA.png", use_container_width=True)
 with col_title:
     st.title("⚙️ SABIA: Consola de Administración MLOps")
-    st.markdown("**Gestión central de orígenes de datos, acervo RAG y recalibración de redes neuronales.**")
+    st.markdown("**Gestión central de bases de Excel, acervo histórico documental y recalibración del motor matemático.**")
 
 # ==========================================
 # 2. FUNCIONES CORE
@@ -93,7 +93,7 @@ if uploaded_file is not None:
 
 st.divider()
 
-st.markdown("### 2. Base de Conocimiento RAG (Acervo Normativo)")
+st.markdown("### 2. Base de Conocimiento (Archivos Institucionales)")
 kb_path = "Base de Conocimiento"
 if not os.path.exists(kb_path):
     os.makedirs(kb_path)
@@ -116,14 +116,14 @@ if uploaded_pdfs:
 
 st.divider()
 
-st.markdown("### 3. Orquestador TDA y Ejecución de Pipelines")
+st.markdown("### 3. Orquestador Automático y Recálculo Analítico")
 st.error("⚠️ **Carga Computacional Alta:** La ejecución de estos modelos consume CPU y RAM. Evitar lanzar múltiples recalibraciones simultáneas.")
 
 col1, col2 = st.columns(2)
 
 with col1:
     st.markdown("#### 🧠 Capa 1: Recalibrar Topología y Contexto")
-    st.markdown("Reconstruye la red tridimensional UMAP, agrupa mediante HDBSCAN y efectúa Similaridad Conseno contra la Base PDF.")
+    st.markdown("Este botón reconstruye toda la agrupación ciudadana a novel nacional, calcula sus diferencias conceptuales y formula la afinidad contra los PDFs cargados en la fase 2.")
     if st.button("🚀 Lanzar Motor de Inteligencia (Pipeline A)", use_container_width=True, type="primary"):
         with st.spinner("Compilando Tensores y Grafos (Espere por favor)..."):
             try:

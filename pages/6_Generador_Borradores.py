@@ -36,8 +36,8 @@ with col_logo:
     if os.path.exists("image/Logo_CRA.png"):
         st.image("image/Logo_CRA.png", use_container_width=True)
 with col_title:
-    st.title("🤖 SABIA: Motor Generativo LLM 'Cero-Alucinación'")
-    st.markdown("**Asistente de Redacción Institucional - Few-Shot Learning basado en Acervo RAG.**")
+    st.title("🤖 SABIA: Generador Asistido 'Cero-Alucinación'")
+    st.markdown("**Asistente de Redacción Institucional - Sistema de respaldo basado exclusivamente en Acervo Normativo.**")
 
 # ==========================================
 # 2. DIRECTORIOS Y CONFIG BASE
@@ -46,7 +46,7 @@ TRAIN_DIR = "entrenamiento_de_respuestas"
 if not os.path.exists(TRAIN_DIR):
     os.makedirs(TRAIN_DIR)
 
-st.sidebar.markdown("### 🔑 Credenciales LLM")
+st.sidebar.markdown("### 🔑 Credenciales Generador IA")
 api_key = st.sidebar.text_input("Google Gemini API Key:", type="password", help="El token es efímero. No se almacena en el servidor por seguridad.")
 
 if api_key:
@@ -113,7 +113,7 @@ def load_human_responses():
 # ==========================================
 clusters = load_clusters()
 if not clusters:
-    st.error("⚠️ Topología Vacía: Ejecute el compendiador NLP en el módulo de Administración antes de intentar redactar.")
+    st.error("⚠️ Base Vectorial Vacía: Ejecute el orquestador principal en el módulo de Administración antes de intentar redactar.")
     st.stop()
 
 colA, colB = st.columns([1, 2])
@@ -151,9 +151,9 @@ with colA:
 
 with colB:
     st.info("#### 3. Sala de Redacción Autómata")
-    st.markdown("Generación determinística (`Temperature = 0.0`). La máquina construirá un alegato estricto, frío y respaldado únicamente por los nodos RAG.")
+    st.markdown("Generación determinística (`Temperature = 0.0`). La máquina construirá un alegato estricto, frío y respaldado únicamente por los nodos documentales.")
     
-    if st.button("🚀 Iniciar Redacción Asistida (LLM)", type="primary"):
+    if st.button("🚀 Iniciar Redacción Asistida (IA)", type="primary"):
         if not api_key:
             st.error("⚠️ Token de Google Cloud / Gemini ausente en el Panel de Administración.")
         else:
