@@ -135,6 +135,30 @@ with col7:
     if st.button("Ir a Analizador Térmico", use_container_width=True, type="primary"):
         st.switch_page("pages/7_Analisis_Sentimiento.py")
 
+with col8:
+    st.markdown("""
+    <div class="card">
+        <h3>🔬 Explorador de Micro-Clústeres</h3>
+        <p>Deep Dive TDA. Permite aislar y fracturar un macro-clúster específico en múltiples sub-agrupaciones o matices, revelando demandas o debates hiper-contextuales ocultos en la mayoría.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    if st.button("Ir a Explorador de Micro-Clústeres", use_container_width=True, type="primary"):
+        st.switch_page("pages/8_Explorador_Microclusters.py")
+
+st.divider()
+
+col9, col10 = st.columns(2)
+
+with col9:
+    st.markdown("""
+    <div class="card">
+        <h3>🗑️ Analizador de Anormalidades y Ruido</h3>
+        <p>Herramienta NLP de Depuración. Mide el descarte del algoritmo (Clúster -1) permitiendo auditar visual y lexicamente el contenido que la IA aisló por considerarlo ruido metodológico.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    if st.button("Ir a Analizador de Ruido", use_container_width=True, type="primary"):
+        st.switch_page("pages/9_Analizador_Ruido.py")
+
 st.divider()
 
 st.markdown("### 📚 Información del Proyecto")
