@@ -6,7 +6,9 @@ import os
 
 # --- 1. PREPARACIÓN DE GRÁFICOS (EXTRACCIÓN DE EXCEL) ---
 print("Generando recursos visuales...")
-excel_path = 'R40 AAPP - RESULTADOS TDA.xlsx'
+import json
+with open('config.json', 'r') as f: config = json.load(f)
+excel_path = config['excel_output']
 df = pd.read_excel(excel_path, sheet_name='REG-FOR03')
 
 # Limpieza básica para los gráficos
@@ -135,7 +137,7 @@ pdf.add_page()
 pdf.titulo_seccion("3. GUÍA OPERATIVA: PASO A PASO PARA RESPONDER EL EXCEL")
 txt_guia = (
     "Instrucciones estandarizadas para que el Equipo Técnico, junto al Científico de Datos, explote y asigne eficazmente "
-    "la matriz 'R40 AAPP - RESULTADOS TDA.xlsx':\n\n"
+    f"la matriz '{excel_path}':\n\n"
     
     "PASO 1: ORDEN Y AISLAMIENTO DE RUIDO (Data Scientist)\n"
     "Abra el archivo resultante y aplique un Autofiltro en Excel. Filtre la columna final [Cluster TDA (IA)] para ocultar "

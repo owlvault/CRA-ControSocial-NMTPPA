@@ -55,7 +55,7 @@ Utilice el menú lateral para navegar por las distintas herramientas analíticas
 
 st.divider()
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.markdown("""
@@ -86,6 +86,16 @@ with col3:
     """, unsafe_allow_html=True)
     if st.button("Ir a Analítica Avanzada", use_container_width=True, type="primary"):
         st.switch_page("pages/3_Analitica_Avanzada.py")
+
+with col4:
+    st.markdown("""
+    <div class="card">
+        <h3>⚙️ Panel Admin</h3>
+        <p>Gestor de actualizaciones de bases de datos. Permite la carga de nuevos Excel de participación (R40) relanzando todos los modelos de recalibración topológica (NLP) para volver a iterar.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    if st.button("Ir a Panel de Administración", use_container_width=True, type="primary"):
+        st.switch_page("pages/4_Administracion.py")
 
 st.divider()
 

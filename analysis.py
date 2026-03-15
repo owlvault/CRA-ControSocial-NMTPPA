@@ -14,7 +14,9 @@ print("=== INICIANDO PIPELINE DE ANÁLISIS ===")
 # FASE 1: Ingesta y Preprocesamiento
 print("FASE 1: Ingesta y Preprocesamiento")
 # Cargar Excel
-excel_path = 'R40 AAPP - FINAL - Marzo 13.xlsx'
+import json
+with open('config.json', 'r') as f: config = json.load(f)
+excel_path = config['excel_input']
 df = pd.read_excel(excel_path, sheet_name='REG-FOR03')
 
 # Limpiar y normalizar 'Consulta'

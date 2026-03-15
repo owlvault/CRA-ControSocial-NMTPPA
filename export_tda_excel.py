@@ -7,8 +7,10 @@ import hdbscan
 from sentence_transformers import SentenceTransformer
 
 # Archivos de Entrada y Salida
-excel_in = 'R40 AAPP - FINAL - Marzo 13.xlsx'
-excel_out = 'R40 AAPP - RESULTADOS TDA.xlsx'
+import json
+with open('config.json', 'r') as f: config = json.load(f)
+excel_in = config['excel_input']
+excel_out = config['excel_output']
 
 print("1. Cargando datos del Excel Original...")
 xls = pd.ExcelFile(excel_in)
