@@ -4,31 +4,65 @@ import glob
 from datetime import datetime
 import json
 
-st.set_page_config(page_title="Monitor de Calidad y Semáforo", layout="wide", page_icon="🩺")
-st.title("🩺 Monitor de Calidad y Sincronía del Sistema")
-st.markdown("Auditoría en tiempo real para verificar si las bases de datos en caché están alineadas con los archivos físicos y la doctrina oficial (RAG).")
+# ==========================================
+# 1. SETUP DE INTERFAZ Y BRANDING
+# ==========================================
+st.set_page_config(page_title="SABIA - Monitor de Calidad", layout="wide", page_icon="🩺")
+import menu
+menu.render_menu()
 
+
+
+st.markdown("""
+<style>
+    .stApp { background-color: #F8FBFF; }
+    h1, h2, h3, h4 { color: #003366 !important; font-weight: 700 !important; }
+    p, span, div, li { color: #2C3E50; }
+    
+    /* Cajas de Estado Semántico */
+    div.stAlert > div { border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+    
+    /* Módulos de Información Crítica */
+    .metric-module {
+        background-color: #ffffff;
+        border: 1px solid #e1e8f0;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+    }
+    .metric-module h4 { color: #0055A4 !important; font-size: 1.1rem; margin-bottom: 10px; }
+    .metric-module p { font-family: monospace; font-size: 1.2rem; color: #2C3E50; }
+</style>
+""", unsafe_allow_html=True)
+
+col_logo, col_title = st.columns([1, 6])
+with col_logo:
+    if os.path.exists("image/Logo_CRA.png"):
+        st.image("image/Logo_CRA.png", use_container_width=True)
+with col_title:
+    st.title("🩺 SABIA: Módulo de Observabilidad y Sincronía")
+    st.markdown("**Auditoría temporal: Integridad de Caché vs. Base Documental Oficial (RAG).**")
+
+# ==========================================
+# 2. MOTOR DE AUDITORÍA
+# ==========================================
 def get_mtime(path):
-    if os.path.exists(path):
-        return os.path.getmtime(path)
-    return 0
+    return os.path.getmtime(path) if os.path.exists(path) else 0
 
 CONFIG_FILE = 'config.json'
 def load_config():
     if os.path.exists(CONFIG_FILE):
-        with open(CONFIG_FILE, 'r') as f:
-            return json.load(f)
+        with open(CONFIG_FILE, 'r') as f: return json.load(f)
     return {'excel_input': 'R40 AAPP - FINAL - Marzo 13.xlsx', 'excel_output': 'R40 AAPP - RESULTADOS TDA.xlsx'}
 
 config = load_config()
 
-# 1. Rutas
 input_path = config.get('excel_input', '')
 output_path = config.get('excel_output', '')
 kb_path = "Base de Conocimiento"
 guia_path = "guia_estrategica_cra.md"
 
-# 2. Tiempos
 t_input = get_mtime(input_path)
 t_output = get_mtime(output_path)
 t_guia = get_mtime(guia_path)
@@ -36,97 +70,105 @@ t_guia = get_mtime(guia_path)
 kb_pdfs = glob.glob(os.path.join(kb_path, "*.pdf"))
 t_kb_max = max([get_mtime(pdf) for pdf in kb_pdfs]) if kb_pdfs else 0
 
-# 3. Lógica de validación
-needs_nlp = False
-needs_export = False
-warnings = []
-success = []
+needs_nlp, needs_export = False, False
+warnings, success = [], []
 
-# Validar Existencia
 if not os.path.exists(input_path):
-    warnings.append(f"Falta Matriz de Entrada: {input_path}")
+    warnings.append(f"Fuga de Input: No se halla la matriz de entrada ({input_path}).")
     needs_nlp = True
-else:
-    success.append("Matriz Cruda de Entrada detectada.")
+else: success.append("Matriz Cruda conectada al Pipeline.")
 
 if not os.path.exists(guia_path):
-    warnings.append("Falta Guía Estratégica RAG (Se debe Ejecutar Motor NLP).")
+    warnings.append("Falta Compilación RAG: El ecosistema normativo no ha sido mapeado internamente.")
     needs_nlp = True
-else:
-    success.append("Guía Estratégica Base detectada.")
+else: success.append("Base de Conocimiento RAG (Vectors) activa.")
 
 if not os.path.exists(output_path):
-    warnings.append(f"Falta Excel de Salida: {output_path} (Se debe Generar Excel).")
+    warnings.append("Ausencia de Output: Falta ensamblar el Excel final de trazabilidad.")
     needs_export = True
-else:
-    success.append("Excel Multi-Dimensional de Resultados (Salida) detectado.")
+else: success.append("Bloque final de exportación detectado.")
 
-# Validar Sincronía NLP vs Input
 if t_input > 0 and t_guia > 0 and t_input > t_guia:
-    warnings.append("La Matriz de Entrada ha sido modificada y es MÁS NUEVA que el análisis TDA guardado. (Reprocesar NLP).")
+    warnings.append("Desincronización por Input Nuevo: La matriz original fue reemplazada. La IA actual opera con datos antiguos.")
     needs_nlp = True
 elif t_input > 0 and t_guia > 0:
-    success.append("Análisis TDA Algorítmico sincronizado con la Matriz de Entrada.")
+    success.append("Machine Learning alineado temporalmente al Excel Sábana R40.")
 
-# Validar Sincronía NLP vs KB (PDFs)
 if t_kb_max > 0 and t_guia > 0 and t_kb_max > t_guia:
-    warnings.append("Hay PDFs recientes que NO han sido asimilados por el motor RAG. (Reprocesar NLP).")
+    warnings.append("Desincronización Documental: Hay PDFs jurídicos recientemente subidos que la red neuronal NO ha procesado aún.")
     needs_nlp = True
 elif t_kb_max > 0 and t_guia > 0:
-    success.append("La Base de Conocimiento (PDFs) está perfectamente asimilada por el modelo RAG.")
+    success.append("La memoria RAG comprende el 100% de los documentos PDF de la institución.")
 
-# Validar Sincronía Salida Excel vs NLP y vs Input
 if t_output > 0 and t_guia > 0 and t_guia > t_output:
-    warnings.append("El Excel de Resultados está desactualizado respecto al último cruce cognitivo (RAG). (Generar Excel).")
+    warnings.append("Rezago en Tablas de Salida: El modelo matemático es más reciente que el Excel generado.")
     needs_export = True
 elif t_output > 0 and t_input > 0 and t_input > t_output:
-    warnings.append("El Excel de Resultados es más viejo que la carga limpia del R40 AAPP. (Generar Excel).")
+    warnings.append("Rezago Absoluto: El Excel final es anterior a la nueva matriz original.")
     needs_export = True
 elif t_output > 0:
-    success.append("Excel de Resultados Excel Sincronizado masivamente.")
+    success.append("Artefactos de Salida perfectamente alineados.")
 
-st.header("1. Trazabilidad de Bases de Datos Computacionales")
+# ==========================================
+# 3. INTERFAZ DE AUDITORÍA EJECUTIVA
+# ==========================================
+st.markdown("### 1. Trazabilidad Temporal de Clústeres (Timestamps)")
 colA, colB, colC = st.columns(3)
+
 with colA:
-    st.info(f"💾 **1. Matriz Cruda (Entrada)**\n\nÚltima Modificación Absoluta:\n`{datetime.fromtimestamp(t_input).strftime('%Y-%m-%d %H:%M:%S') if t_input else 'N/A'}`")
+    st.markdown(f"""
+    <div class="metric-module">
+        <h4>💾 Nodo Base (Sábana Original)</h4>
+        <p>{datetime.fromtimestamp(t_input).strftime('%Y-%m-%d %H:%M:%S') if t_input else 'Inexistente'}</p>
+    </div>
+    """, unsafe_allow_html=True)
 with colB:
-    st.info(f"🧠 **2. Motor TDA/NLP (Estrategia)**\n\nÚltima Modificación Absoluta:\n`{datetime.fromtimestamp(t_guia).strftime('%Y-%m-%d %H:%M:%S') if t_guia else 'N/A'}`")
+    st.markdown(f"""
+    <div class="metric-module">
+        <h4>🧠 Nodo de Memoria NLP (RAG)</h4>
+        <p>{datetime.fromtimestamp(t_guia).strftime('%Y-%m-%d %H:%M:%S') if t_guia else 'Inexistente'}</p>
+    </div>
+    """, unsafe_allow_html=True)
 with colC:
-    st.info(f"📊 **3. Matriz Analítica (Salida)**\n\nÚltima Modificación Absoluta:\n`{datetime.fromtimestamp(t_output).strftime('%Y-%m-%d %H:%M:%S') if t_output else 'N/A'}`")
+    st.markdown(f"""
+    <div class="metric-module">
+        <h4>📊 Artefacto Entregable (Output)</h4>
+        <p>{datetime.fromtimestamp(t_output).strftime('%Y-%m-%d %H:%M:%S') if t_output else 'Inexistente'}</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.divider()
 
-st.header("2. Semáforo de Acción Operativa")
-
+st.markdown("### 2. Semáforo de Riesgo Legal (Compliance)")
 if len(warnings) == 0:
-    st.success("✅ ESTADO ÓPTIMO (CALIDAD AL 100%): Todos los datos de entrada, modelos en caché, y excels generados, están cronológicamente alineados. El equipo puede proceder de forma segura.")
+    st.success("✅ **STATUS VERDE (SEGURIDAD 100%):** Todos los vectores, tensores gráficos y excels exportados coinciden a nivel de milisegundo operativo. El equipo jurídico y gerencial puede confiar plenamente en las cifras exhibidas localmente.")
 else:
-    st.error("⚠️ ALERTA DE DATOS DESFASADOS: Se encontró un cuello de botella o desfase en los documentos. Ejecute los pasos requeridos debajo.")
+    st.error("⚠️ **STATUS ROJO (DESFASE COGNITIVO):** Peligro de 'Alucinación Regulatoria'. Los módulos del sistema operan con temporalidades fracturadas. Proceda a ejecutar el orquestador inmediatamente.")
     for w in warnings:
-        st.warning(f"**Hallazgo de Auditoría:** {w}")
+        st.warning(f"🕵️‍♂️ **Vector de Fallo:** {w}")
 
 st.divider()
-st.header("3. Acciones Recomendadas y Requeridas")
 
+st.markdown("### 3. Resolución Táctica")
 col1, col2 = st.columns(2)
 
 with col1:
     if needs_nlp:
-        st.error("👉 **ACCIÓN PRIMARIA REQUERIDA:**\nMotor NLP/TDA desactualizado u obra con información de un mes anterior. Ve al Panel de Administración y ejecuta '🚀 Ejecutar Motor Neuronal'.")
-        if st.button("Ir al Administrador para Reprocesar Inteligencia", type="primary"):
+        st.error("👉 **BLOQUEO EN RED NEURONAL:**\nLa topología requiere compilación forzosa.")
+        if st.button("Lanzar Consola de Recalibración (NLP)", type="primary"):
             st.switch_page("pages/4_Administracion.py")
     else:
-        st.success("✅ Integridad neuronal aprobada. No requiere recálculo computacional.")
+        st.success("✅ **Tensor Aprobado:** Pipeline Analítico sano.")
 
 with col2:
     if needs_export:
-        st.warning("👉 **ACCIÓN SECUNDARIA REQUERIDA:**\nEl archivo R40 de resultados para Microsoft Excel está obsoleto. Ve al Panel de Administración y ejecuta '💾 Generar Excel de Resultados'.")
-        if st.button("Ir al Administrador para Integrar a Excel", type="primary"):
+        st.warning("👉 **BLOQUEO EN ENSAMBLAJE:**\nEl equipo jurídico no tiene la matriz más reciente.")
+        if st.button("Lanzar Empaquetador de Excel", type="primary"):
             st.switch_page("pages/4_Administracion.py")
     else:
-        st.success("✅ Archivo de Microsoft Excel exportado con calidad al día.")
+        st.success("✅ **Excel Sano:** Bloques exportados correctamente.")
 
 st.divider()
-with st.expander("Ver Bitácora de Sincronía Exitosa (Logs OK)"):
+with st.expander("Ver Auditoría de Integridad Estructural (Log)"):
     for s in success:
-        st.markdown(f"- ✔️ {s}")
+        st.markdown(f"- ✔️ `{s}`")

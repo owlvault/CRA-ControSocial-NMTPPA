@@ -5,16 +5,52 @@ import subprocess
 import time
 import glob
 
-st.set_page_config(page_title="Administración del Sistema", layout="wide", page_icon="⚙️")
-st.title("⚙️ Panel de Administración y Reprocesamiento")
-st.markdown("Actualice la matriz de datos y relance los algoritmos de Inteligencia Artificial (NLP & TDA).")
+# ==========================================
+# 1. SETUP DE INTERFAZ Y BRANDING
+# ==========================================
+st.set_page_config(page_title="SABIA - Panel de Administración", layout="wide", page_icon="⚙️")
+import menu
+menu.render_menu()
 
+
+
+st.markdown("""
+<style>
+    .stApp { background-color: #F8FBFF; }
+    h1, h2, h3, h4 { color: #003366 !important; font-weight: 700 !important; }
+    p, span, div, li { color: #2C3E50; }
+    
+    /* System Cards */
+    div.stButton > button {
+        border-radius: 6px;
+        font-weight: 600;
+    }
+    .metric-box {
+        background-color: #ffffff;
+        border: 1px solid #e1e8f0;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+</style>
+""", unsafe_allow_html=True)
+
+col_logo, col_title = st.columns([1, 6])
+with col_logo:
+    if os.path.exists("image/Logo_CRA.png"):
+        st.image("image/Logo_CRA.png", use_container_width=True)
+with col_title:
+    st.title("⚙️ SABIA: Consola de Administración MLOps")
+    st.markdown("**Gestión central de orígenes de datos, acervo RAG y recalibración de redes neuronales.**")
+
+# ==========================================
+# 2. FUNCIONES CORE
+# ==========================================
 CONFIG_FILE = 'config.json'
 
 def get_kb_state():
     kb_path = "Base de Conocimiento"
-    if not os.path.exists(kb_path):
-        return {}
+    if not os.path.exists(kb_path): return {}
     pdfs = glob.glob(os.path.join(kb_path, "*.pdf"))
     state = {}
     for pdf in pdfs:
@@ -24,32 +60,32 @@ def get_kb_state():
 
 def load_config():
     if os.path.exists(CONFIG_FILE):
-        with open(CONFIG_FILE, 'r') as f:
-            return json.load(f)
+        with open(CONFIG_FILE, 'r') as f: return json.load(f)
     return {'excel_input': 'R40 AAPP - FINAL - Marzo 13.xlsx', 'excel_output': 'R40 AAPP - RESULTADOS TDA.xlsx', 'kb_state': {}}
 
 def save_config(config):
-    with open(CONFIG_FILE, 'w') as f:
-        json.dump(config, f)
+    with open(CONFIG_FILE, 'w') as f: json.dump(config, f)
 
 config = load_config()
 
-st.header("1. Actualizar Matriz de Participación Ciudadana")
-st.info(f"**Archivo de entrada activo:** `{config['excel_input']}`")
+# ==========================================
+# 3. INTERFAZ DE ADMINISTRACIÓN
+# ==========================================
 
-uploaded_file = st.file_uploader("Suba la nueva matriz de datos R40 (Excel .xlsx)", type=["xlsx"])
+st.markdown("### 1. Ingesta de Matriz Ciudadana (Input Layer)")
+st.info(f"**Data Lake Activo (Matriz Principal):** `{config['excel_input']}`")
+
+uploaded_file = st.file_uploader("Actualizar Sábana R40 (Excel .xlsx)", type=["xlsx"])
 
 if uploaded_file is not None:
-    if st.button("💾 Guardar y Establecer como Activo", type="primary"):
-        # Guardar archivo fisicamente
+    if st.button("💾 Empujar a Producción y Activar Matriz", type="primary"):
         file_path = uploaded_file.name
         with open(file_path, "wb") as f:
             f.write(uploaded_file.getbuffer())
         
-        # Actualizar config
         config['excel_input'] = file_path
         save_config(config)
-        st.success(f"Archivo **{file_path}** guardado y configurado como la nueva matriz de entrada.")
+        st.success(f"Archivo **{file_path}** mapeado como Ingesta 0 (Input Root).")
         st.cache_data.clear()
         st.cache_resource.clear()
         time.sleep(1)
@@ -57,7 +93,7 @@ if uploaded_file is not None:
 
 st.divider()
 
-st.header("2. Base de Conocimiento (PDFs)")
+st.markdown("### 2. Base de Conocimiento RAG (Acervo Normativo)")
 kb_path = "Base de Conocimiento"
 if not os.path.exists(kb_path):
     os.makedirs(kb_path)
@@ -66,52 +102,51 @@ current_kb_state = get_kb_state()
 saved_kb_state = config.get('kb_state', {})
 
 if current_kb_state != saved_kb_state:
-    st.warning("⚠️ **Cambios Detectados en la Base de Conocimiento:** Se han añadido, modificado o eliminado documentos PDF. Se recomienda Reprocesar el Motor Neuronal para actualizar el cruce normativo.")
+    st.warning("⚠️ **Desincronización en Base Documental:** Se ha detectado una mutación (adición/eliminación) de archivos PDF subyacentes. Se exige recalibración del Motor Neuronal para prevenir Alucinaciones.")
 
-uploaded_pdfs = st.file_uploader("Subir nuevos documentos normativos (PDF)", type=["pdf"], accept_multiple_files=True)
+uploaded_pdfs = st.file_uploader("Expandir Acervo con Decretos / Leyes / Documentos Técnicos (PDF)", type=["pdf"], accept_multiple_files=True)
 if uploaded_pdfs:
-    if st.button("💾 Guardar PDFs en Base de Conocimiento", type="secondary"):
+    if st.button("💾 Inyectar PDFs a la Base Vectorial", type="secondary"):
         for pdf in uploaded_pdfs:
             pdf_path = os.path.join(kb_path, pdf.name)
             with open(pdf_path, "wb") as f:
                 f.write(pdf.getbuffer())
-        st.success(f"Se han guardado {len(uploaded_pdfs)} documentos exitosamente en '{kb_path}'.")
+        st.success(f"Se han guardado {len(uploaded_pdfs)} documentos exitosamente en el Acervo Institucional.")
         st.rerun()
 
 st.divider()
 
-st.header("3. Pipeline de Reprocesamiento (TDA & NLP)")
-st.warning("⚠️ **Atención:** Ejecutar estos algoritmos requiere alta capacidad de cómputo. El proceso leerá la nueva matriz activa y recalculará la Topología Matemática y la Base Normativa RAG de cero.")
+st.markdown("### 3. Orquestador TDA y Ejecución de Pipelines")
+st.error("⚠️ **Carga Computacional Alta:** La ejecución de estos modelos consume CPU y RAM. Evitar lanzar múltiples recalibraciones simultáneas.")
 
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("### 🧠 Paso A: Recalcular Topología y RAG")
-    st.markdown("Lee la nueva matriz, genera embeddings, detecta clústeres y cruza con la Base Doc. Genera una nueva Guía Estratégica.")
-    if st.button("🚀 Ejecutar Motor Neuronal", use_container_width=True):
-        with st.spinner("Ejecutando Modelos NLP (Puede tomar varios minutos)..."):
+    st.markdown("#### 🧠 Capa 1: Recalibrar Topología y Contexto")
+    st.markdown("Reconstruye la red tridimensional UMAP, agrupa mediante HDBSCAN y efectúa Similaridad Conseno contra la Base PDF.")
+    if st.button("🚀 Lanzar Motor de Inteligencia (Pipeline A)", use_container_width=True, type="primary"):
+        with st.spinner("Compilando Tensores y Grafos (Espere por favor)..."):
             try:
-                # Ejecutar analysis.py como subproceso bloqueante
                 result = subprocess.run(["python", "analysis.py"], capture_output=True, text=True)
                 if result.returncode == 0:
-                    st.success("Tópicos y Cruce Normativo recalculados exitosamente.")
+                    st.success("Arquitectura Topológica reconstruida exitosamente.")
                     config['kb_state'] = get_kb_state()
                     save_config(config)
-                    with st.expander("Ver Log de Consola"):
+                    with st.expander("Ver Traza del Compilador"):
                         st.code(result.stdout)
                 else:
-                    st.error("Error al ejecutar el Script de Análisis.")
-                    with st.expander("Ver Detalles de Error"):
+                    st.error("Error crítico en Pipeline A.")
+                    with st.expander("Ver Dump de Error"):
                         st.code(result.stderr)
             except Exception as e:
-                st.error(f"Falla del sistema: {e}")
+                st.error(f"Falla del orquestador: {e}")
 
 with col2:
-    st.markdown("### 📊 Paso B: Ensamblar Excel Final")
-    st.markdown("Inyecta los sub-resultados espaciales y estratégicos nuevamente al Excel preservando su formato original estructural.")
-    out_name = st.text_input("Nombre del archivo de Salida a generar:", value=config.get('excel_output', 'R40 AAPP - RESULTADOS TDA.xlsx'))
+    st.markdown("#### 📊 Capa 2: Ensamblar Artefacto de Salida (Output)")
+    st.markdown("Traduce los clústeres matemáticos de la Capa 1 y los consolida en una macro-matriz Excel interactiva para el equipo legal.")
+    out_name = st.text_input("Pipeline Output (Archivo a Exportar):", value=config.get('excel_output', 'R40 AAPP - RESULTADOS TDA.xlsx'))
     
-    if st.button("💾 Generar Excel de Resultados", use_container_width=True):
+    if st.button("💾 Generar Matriz de Resultados", use_container_width=True, type="secondary"):
         config['excel_output'] = out_name
         save_config(config)
         
@@ -119,19 +154,19 @@ with col2:
              try:
                  result = subprocess.run(["python", "export_tda_excel.py"], capture_output=True, text=True)
                  if result.returncode == 0:
-                     st.success(f"Matriz de Resultados exportada como: {out_name}")
-                     with st.expander("Ver Log de Consola"):
+                     st.success(f"Artefacto Excel generado: {out_name}")
+                     with st.expander("Ver Traza del Empaquetador"):
                          st.code(result.stdout)
                  else:
-                     st.error("Error empaquetando el Excel.")
-                     with st.expander("Ver Detalles de Error"):
+                     st.error("Error empaquetando el artefacto.")
+                     with st.expander("Ver Dump de Error"):
                          st.code(result.stderr)
              except Exception as e:
-                 st.error(f"Falla del sistema: {e}")
+                 st.error(f"Falla del orquestador: {e}")
 
 st.divider()
-st.markdown("### 🚽 Limpieza de Caché de Memoria")
-if st.button("🧹 Purgar Memoria Caches de Streamlit"):
+st.markdown("#### 🚽 Mantenimiento del Servidor")
+if st.button("🧹 Limpiar Caché Vectorial y Memoria GUI"):
     st.cache_data.clear()
     st.cache_resource.clear()
-    st.success("Memoria caché liberada.")
+    st.success("Memoria gráfica y RAM liberadas exitosamente.")

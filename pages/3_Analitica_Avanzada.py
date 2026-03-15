@@ -16,6 +16,10 @@ import json
 # 1. SETUP DE INTERFAZ Y BRANDING
 # ==========================================
 st.set_page_config(page_title='SABIA - Analítica Avanzada', layout='wide', page_icon='🔬')
+import menu
+menu.render_menu()
+
+
 
 # Inyección de CSS (Heurísticas visuales TDA: Espacio negativo, colores corporativos, tablas legibles)
 st.markdown("""

@@ -2,11 +2,15 @@ import streamlit as st
 import os
 
 st.set_page_config(
+
     page_title="SABIA - Centro Analítico CRA",
     page_icon="⚖️",
     layout="wide",
     initial_sidebar_state="expanded"
 )
+import menu
+menu.render_menu()
+
 
 # Custom CSS estricto SABIA (Heurísticas visuales TDA: Espacio negativo, clean UI)
 st.markdown("""

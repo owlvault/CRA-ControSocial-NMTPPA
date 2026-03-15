@@ -9,6 +9,10 @@ from datetime import datetime
 # 1. SETUP DE INTERFAZ Y BRANDING
 # ==========================================
 st.set_page_config(page_title='SABIA - Gestión de Respuestas', layout='wide', page_icon='🏛️')
+import menu
+menu.render_menu()
+
+
 
 st.markdown("""
 <style>

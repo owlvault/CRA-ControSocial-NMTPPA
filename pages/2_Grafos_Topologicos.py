@@ -16,6 +16,10 @@ import networkx as nx
 # 1. SETUP DE INTERFAZ Y BRANDING
 # ==========================================
 st.set_page_config(page_title='SABIA - Grafos Topológicos', layout='wide', page_icon='🕸️')
+import menu
+menu.render_menu()
+
+
 
 # Inyección UX: Tipografía corporativa, espacio negativo, high data-to-ink ratio
 st.markdown("""
