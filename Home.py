@@ -55,7 +55,7 @@ Utilice el menú lateral para navegar por las distintas herramientas analíticas
 
 st.divider()
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3 = st.columns(3)
 
 with col1:
     st.markdown("""
@@ -87,6 +87,10 @@ with col3:
     if st.button("Ir a Analítica Avanzada", use_container_width=True, type="primary"):
         st.switch_page("pages/3_Analitica_Avanzada.py")
 
+st.divider()
+
+col4, col5 = st.columns(2)
+
 with col4:
     st.markdown("""
     <div class="card">
@@ -96,6 +100,16 @@ with col4:
     """, unsafe_allow_html=True)
     if st.button("Ir a Panel de Administración", use_container_width=True, type="primary"):
         st.switch_page("pages/4_Administracion.py")
+
+with col5:
+    st.markdown("""
+    <div class="card">
+        <h3>🩺 Monitor de Calidad</h3>
+        <p>Sistema de semáforos y auditoría. Evalúa en tiempo real si el Excel final, la Base de Conocimientos o la Matriz de Origen se encuentran mutuamente desfasadas en caché.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    if st.button("Ir a Monitor de Calidad", use_container_width=True, type="primary"):
+        st.switch_page("pages/5_Monitor_Calidad.py")
 
 st.divider()
 
