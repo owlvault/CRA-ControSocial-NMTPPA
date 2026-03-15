@@ -1,60 +1,66 @@
-# MANUAL DE DESPLIEGUE TÉCNICO: ENTORNO DAta SCIENCE
+# MANUAL DE DESPLIEGUE CONTINUO Y OPERACIÓN - PLATAFORMA SABIA (CRA)
 
-## Prerrequisitos del Analista
+SABIA (Sistema de Análisis Basado en Inteligencia Artificial) es un ecosistema Python/Streamlit que no requiere contenedores Docker complejos para operar, garantizando un despliegue veloz y soberano dentro de los equipos de la Comisión.
 
-Todo miembro del departamento de Inteligencia de Datos o Analítica que desee auditar o explotar este ecosistema de control social CRA requerirá un OS con **Python 3.8 o superior**.
-Es indispensable disponer de su entorno virtualizado preparado o Git Bash habilitado (Anaconda u OS X Nativo es válido).
+## 1. Requisitos del Sistema Base
+*   **Sistema Operativo:** Windows 10/11 Profesional, Linux (Ubuntu/Debian) o macOS.
+*   **Hardware (Recomendado):** Procesador M1/x64 moderno o superior de 4 núcleos (mínimo). Memoria RAM mínima de 8 GB (Recomendado 16 GB).
+*   **Python:** Entorno Limpio Versión `>= 3.9` hasta `3.11`.
+*   **Compilador subyacente:** Visual Studio C++ Build Tools (Solo Windows: Necesario para compilar UMAP/HDBSCAN sin error Rueda (`wheel`)).
 
-## Proceso de Instalación
+---
 
-**Paso 1: Clonar el Repositorio Maestro en el Terminal OS**
-```bash
-git clone https://github.com/owlvault/CRA-ControSocial-NMTPPA.git
-cd CRA-ControSocial-NMTPPA
+## 2. Instrucciones de Instalación Local y Despliegue en 4 Pasos
+
+1. **Clonación del Repositorio:**
+Descargue el ecosistema y entre a la carpeta.
+```powershell
+git clone <url-del-repositorio>
+cd CRA-ControlSocial-NMTPPA
 ```
 
-**Paso 2: Instalación de Dependencias e IA Pre-entrenada**
-- Recomendación: Operar bajo Entorno Virtual local (`python -m venv venv` // luego invocar `.venv/Scripts/activate` o  `source venv/bin/activate`).
-- Seguidamente, cargar requerimientos vectoriales listados.
-```bash
+2. **Creación del Entorno Aislado Virtual (`venv`):**
+Cree un ambiente Python dedicado y hermético por seguridad.
+```powershell
+python -m venv venv
+
+# En Windows Activar:
+.\venv\Scripts\Activate.ps1
+
+# En Linux / Mac Activar:
+source venv/bin/activate
+```
+
+3. **Inyección de Dependencias Científicas:**
+Instalar las sub-librerías matemáticas requeridas para la Topología Numérica y Streamlit puro.
+```powershell
+pip install --upgrade pip
 pip install -r requirements.txt
 ```
-> *(Nota Científica: La librería `sentence-transformers` se descargará por primera vez a este OS una fracción pesada (2-3Gb) de redes neuronales HuggingFace, pero el sistema quedará cacheado off-line indefinidamente).*
 
-## Mantenimiento Predictivo: Generar Exportable o Actualizar Matriz Excel Crudo
+*(Si su red corporativa CRA presenta proxys bloqueantes para la descarga del Transformer, desactive SSL o contacte a IT de la Institución)*
 
-Si la entidad reguladora emite un anexo, el archivo nativo (`R40 AAPP - FINAL - Marzo 13.xlsx`) deberá ser reemplazado o sumado a las filas en su pestaña original (`REG-FOR03`).
-
-```bash
-# Script de Procesamiento IA, RAG y MarkDown (Ineludible como primer paso si cambian las leyes PDF):
-python analysis.py
-
-# Script para Refrescar el cruce final Topológico que se va hacia Excel de Microsoft:
-python export_tda_excel.py
+4. **Arranque en Caliente del Servidor Web (Localhost):**
+El servicio subirá la Interfaz SABIA directamente a su navegador local en segundos.
+```powershell
+python -m streamlit run Home.py
 ```
+Acceda en `http://localhost:8501`.
 
-## Levantamiento Simultáneo de Tableros (Dashboards)
+---
 
-Existen tres interfaces interconectadas que actúan como "Ventanilla de Exploración Interactiva". El equipo técnico deberá servirlos con Streamlit hacia los navegadores de internet designados:
+## 3. Configuración Inicial e Ingesta de Primer Uso
+1. Una vez desplegada la Interfaz, diríjase al módulo en la barra de menú: **⚙️ Consola Admin**.
+2. Arrastre en la "Capa 1" la matriz base provista por el Ministerio (Ej. `R40 AAPP - FINAL.xlsx`). 
+3. Arrastre Documentos Institucionales (`.pdf`) y las Resoluciones del Régimen Tarifario hacia la subsección RAG.
+4. Presione en **"🚀 Lanzar Motor de Inteligencia (Pipeline A)"**.
+5. *Nota:* La primera ejecución de la red neuronal demorará algo más debido a la descarga del Modelo Multilingüe `MiniLM-L12` (~150 MB) al disco caché local. Las siguientes ejecuciones serán instántaneas.
 
-**Módulo 1: Mesa de Ayuda Coordinadores y Asignación Legal**
-Panel con el formulario donde el comité asigna los `25 macro-clústeres detectados` pre-resueltos hacia áreas particulares (Técnica o Jurídica). Su estado local se almacena atómicamente en un `.json`.
-```bash
-python -m streamlit run dashboard.py --server.port 8503
-```
+---
 
-**Módulo 2: Panel Visual y Grafo Normativo NetworkX**
-Diagramadores analíticos espaciales (2D Scatters + Nodos relacionales PQR vs. Evidencia en Documentos Base de la CRA).
-```bash
-python -m streamlit run dashboard_topo.py --server.port 8504
-```
-
-**Módulo 3: Complejo TDA Avanzado Científico**
-Entorno con la matriz 3-Tridimensional para analistas. Matriz cruzada (Categoría *Variable* contra *Variable Termal* o Zonal), generador de top words TF-IDF exclusivas del cúmulo ciudadano y el Motor de Búsqueda Vectorizada Ad-Hoc.
-```bash
-python -m streamlit run dashboard_analytics.py --server.port 8505
-```
-
-## Troubleshooting (Advertencias Comunes en Entornos Corporativos Locales)
-
-*   **RuntimeWarning (OSFork o Threads):** El motor Transformer podría emitir una advertencia a nivel terminal debido al paralelismo asincrónico por defecto que intenta forzar HuggingFace Tokenizers por debajo para velocidad. Si causa inestabilidades bajo Windows nativo, establecer como variable de entorno previa: `export TOKENIZERS_PARALLELISM=false` o fijar `os.environ["TOKENIZERS_PARALLELISM"] = "false"` en el cabezote global de los scripts .py.
+## 4. Estructura de Integridad de Directorios Críticos
+El software asume que en el mismo vector o carpeta local operen:
+*   `config.json`: Registra qué base de datos está enganchada al sistema y no debe borrarse accidentalmente. (Si no existe, se crea solo).
+*   `Base de Conocimiento/`: Carpeta protegida o directorio donde se lanzan los PDFs de las Leyes / Formularios CRA oficiales de los que bebe el Ecosistema para no inducir "alucinación" en sus respuestas.
+*   `entrenamiento_de_respuestas/`: Carpeta que guarda los manuales PDF viejos con que la IA mimetiza ("Few-Shot") el léxico, estilo burocrático, encabezado y pie de página de las cartas de los años pasados.
+*   `/pages/`: Motor Multi-Página de Streamlit que orquesta y lanza los 8 módulos restantes desde su Enrutador inyectado en `menu.py` hacia `Home.py`.

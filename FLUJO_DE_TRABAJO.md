@@ -1,28 +1,27 @@
-# FLUJO DE TRABAJO: ANÁLISIS DE MATRIZ DE PARTICIPACIÓN CIUDADANA
+# SISTEMA OPERATIVO MLOps: RUTEO DE DATOS EN LA PLATAFORMA SABIA
 
-## Introducción
-El siguiente diagrama detalla cómo los datos de participación ciudadana viajan de forma ininterrumpida desde una hoja de cálculo cruda hasta convertirse en respuestas sólidas justificadas legalmente.
+## Introducción y Misión de SABIA
+El siguiente diagrama detalla cómo las grandes bases de datos asimétricas y quejas colombianas viajan de forma ininterrumpida desde un `.xlsx` de origen, cruzando un conjunto avanzado de algoritmos matemáticos, para derivar hacia la "Cartografía de Observaciones" que asisten el trabajo jurídico de las respuestas y decisiones tarifarias (NMTPPA).
 
-## Fases del Flujo Nominal
+## Fases del Flujo Nominal y Consumo
 
-**1. Fase Institucional: Recepción y Estructuración Básica**
-- La CRA consolida en un documento principal de Excel (`R40 AAPP - FINAL - Marzo 13.xlsx`) las observaciones remitidas por la ciudadanía (correos, actas presenciales).
-- Simultáneamente, el área técnica aloja los marcos normativos, borradores de resolución y estudios técnicos de justificación (9 documentos PDF) en la carpeta local denominada `Base de Conocimiento`.
+**1. Fase Institucional (Ingesta Maestra y Archivos Regulares)**
+- Un operario despliega la consola `⚙️ Panel Admin`. 
+- Carga el Excel (`R40 AAPP - FINAL.xlsx`) rellenado previamente con la recopilación del territorio nacional y la arrastra hacia la Input Layer.
+- Los directivos anexan al mismo tiempo textos legales, de justificación, Decretos y Leyes (.pdf) construyendo y "expandiendo" el músculo RAG de documentos de Estado.
 
-**2. Fase Computacional: Ingesta y Vectorización (NLP)**
-- **Limpieza (Scrubbing):** El script extrae únicamente la hoja principal de trabajo (`REG-FOR03`). El texto libre de cada ciudadano es despojado de saltos de línea irregulares y espacios dobles. Se suprimen entradas vacías o cortas (e.g. "ok") por falta de sustancia semántica.
-- **Generación de Embeddings:** El modelo transformer proyecta el lenguaje natural de cada observación hacia el espacio matemático denso multidimensional (384 dimensiones). Aquí el motor entiende que palabras como "costo", "tarifa" y "valor a cobrar" están entrelazadas en significado.
+**2. Fase de Inferencia Computacional: Vectorización y NLP**
+- **Scrubbing Textual:** Limpieza cruda (Regex y truncados) de textos con el comando "Motor Inteligente". Extirpando el ruido sin-propósito (ej. "hola" o vacíos).
+- **Proyección de Embeddings (384D):** Una variante liviana, agnóstica de `SentenceTransformer` genera geometría pura interlingüística y capta las alianzas temáticas o intenciones sin necesidad de leer sintaxis exacta (Midiendo distancias).
 
-**3. Fase TDA (Análisis Topológico y Clustering)**
-- El conjunto entero de observaciones (los embeddings) pasan a su análisis posicional.
-- UMAP aplasta esas 384 dimensiones a 2 y 3 para volverlas visualizables y calculables.
-- **HDBSCAN** interviene rastreando la nube de puntos. Define con precisión dónde un grupo de ideas se hace lo suficientemente denso (un macro-tópico) para constituir un **Clúster**, y marca los comentarios aleatorios que no siguen el hilo narrativo del país con un identificador de `-1` (Ruido).
+**3. Fase TDA de "Densidad Topológica" y Clustering Iterativo**
+- **UMAP Reductor:** Se transita hacia 2 y 3 Dimensiones para que las computadoras gráficas o WebGL soporten la cantidad masiva de ciudadanas dibujadas en pantalla.
+- **HDBSCAN Segmentador:** Explora agrupaciones "Constelaciones" que se repelen o se concentran para establecer los ejes temáticos definitivos, escupiendo y separando a aquel ochenta-por-ciento "Clústeres Nacionales" del remanente veinte-por-ciento de "Anomalías Aisladas/Casos Singulares".
 
-**4. Fase Estructural: Cruce RAG (Retrieval-Augmented Generation)**
-- El centro de gravedad de cada clúster se alinea de regreso contra nuestra biblioteca normada (Base de Conocimiento).
-- El motor dispara una analogía del "Coseno": recupera los tres fragmentos específicos de PDF (con documento y número de página) que son constitucional, tarifaria o matemáticamente contiguos al reclamo o sugerencia del grupo ciudadano.
+**4. Fase Estructural: RAG Analítico Gubernamental**
+- Retornando cada "Masa Topológica", aplica la lectura coseno (`cosine similarity`) comparando en el servidor el corazón del debate ciudadano de este Clúster, versus el enorme cúmulo o texto completo de las Resoluciones provistas (PDFs). Vinculando los sustentos u orígenes constitucionales exactos y dictaminando su "Relevancia".
 
-**5. Fase Despliegue: Tableros Específicos y Exportables**
-- Se construye de manera unificada el `R40 AAPP - RESULTADOS TDA.xlsx` devolviéndole toda la matemática cruzada a las manos de los analistas que prefieren manejar Excel o BI general.
-- Se crean dos Dashboards Analíticos para las gerencias de TI.
-- Se nutre el Tablero de **Dashboard de Asignaciones** para que la jerarquía de las regulaciones pase al equipo revisor humano y asigne la observación masiva a su redactor final.
+**5. Fase de Despliegue (App Sidebar y Exportación Final)**
+- La Data MLOps es forjada y empacada transversalmente ("Excel_Resultados_TDA.xlsx") en el Panel Admin.
+- Simultáneamente todos los `Tabs` Laterales (`1. Topología` y `2. Acciones Institucionales`) brillan "Verde" previniendo a la "Salud del Orquestador".
+- **Equipos Directores y Abogados (Jurídicos)** se disponen a observar las Cartografías de Grafo, Fricciones Termográficas y la Sala Generativa LLM, listos para redactar masivamente respuestas con *Template* Institucional Gemini mediante técnicas de Few-Shot.

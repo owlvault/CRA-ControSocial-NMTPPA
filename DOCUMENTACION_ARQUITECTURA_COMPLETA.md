@@ -1,62 +1,52 @@
-# ECOSISTEMA INTEGRADO MLOps: CENTRO DE ANÁLISIS CRA - NMTPPA
+# ECOSISTEMA INTEGRADO MLOps: PLATAFORMA SABIA (CRA - NMTPPA)
 
-Este documento sirve como hoja de ruta técnica y arquitectónica para comprender el ecosistema final de la plataforma, la cual consta de **9 módulos de Inteligencia Artificial interconectados** diseñados para gobernar el ciclo completo de participación ciudadana regulatorio.
-
----
-
-## 🏗 Arquitectura de Alto Nivel
-El sistema opera bajo un pipeline lineal paramétrico. Las entradas asíncronas iniciales (`.xlsx` original y `PDFs` de Resoluciones) desencadenan un clúster de Inteligencia Artificial basado en HuggingFace que destila conocimiento geométrico. Este conocimiento topológico luego se ramifica hacia herramientas de consumo directo por parte de los 3 Perfiles Clave de la Institución: 
-1. **Coordinadores Jurídicos/Técnicos**.
-2. **Científicos de Datos y Estadísticos**.
-3. **Redactores Finales**.
+Este documento sirve como hoja de ruta técnica y arquitectónica para comprender el ecosistema final de la Plataforma SABIA (Sistema de Análisis Basado en Inteligencia Artificial), la cual consta de **9 módulos de Inteligencia Artificial interconectados** diseñados para gobernar el ciclo completo de participación ciudadana y análisis normativo.
 
 ---
 
-## 🚀 Desglose de los 9 Módulos del Ecosistema
+## 🏗 Arquitectura de Alto Nivel "Divulgación Progresiva"
+El sistema opera bajo un pipeline parametrizado (MLOps) y una interfaz fluida impulsada por Streamlit. Las entradas asíncronas iniciales (Matriz de Participación `.xlsx` y `PDFs` Regulares) desencadenan un cluster de modelos de ML local. 
+La interfaz incluye un **Enrutador Lateral Customizado** que estructura el trabajo en tres grandes familias funcionales (1. Topología, 2. Acción Institucional, y 3. Mantenimiento). Para proteger a perfiles gerenciales y abogados de la saturación visual, el software incorpora *switches* o palancas de "Modo Ingeniero", escondiendo los tensores o hiper-parámetros por defecto detrás de diseños sumamente limpios (Cero-Ruido, alta relación `Data-to-Ink`), colores y tipologías corporativas (Azul y Tabular).
 
-### 1. 🏛️ Gestión de Respuestas (`1_Gestion_Respuestas.py`)
-*   **Usuarios:** Coordinadores de Dependencias.
-*   **Función:** Interfaz CRUD central. Lee la destilación RAG proveniente del motor primario y muestra un resumen ejecutivo de cada Clúster Ciudadano (Tema Central + Artículos Cruzados + Estrategia Sugerida).
-*   **Valor MLOps:** Permite a los directivos asignar dinámicamente un responsable institucional (Jurídico, Técnico) a cada macromasa (Clúster) y priorizar la gravedad de las respuestas.
+---
 
-### 2. 🕸️ Grafos Topológicos (`2_Grafos_Topologicos.py`)
-*   **Usuarios:** Analistas y Directivos.
-*   **Función:** Transforma la sábana de texto de 1,701 filas en una cartografía viva dimensional (UMAP 2D). Dibuja un Diagrama de Red Bi-partito (NetworkX) conectando nodos de Clústeres contra los Nodos Documentales (PDFs de la CRA) que los sustentan en la nube geométrica.
-*   **Valor MLOps:** Cartografía visual de relaciones complejas.
+## 🚀 Desglose de los 9 Módulos del Ecosistema SABIA
+
+### 1. ⚖️ Gestión de Acuerdos (`1_Gestion_Respuestas.py`)
+*   **Segmento:** Flujo de Acción Institucional.
+*   **Función:** Interfaz CRUD de Asignaciones. Lee la destilación proveniente de la base y muestra las síntesis, requerimientos estratégicos de respuesta y la delegación de responsabilidades de las Dependencias de la entidad a cada Macromasa Ciudadana.
+
+### 2. 🕸️ Cartografía Relacional (`2_Grafos_Topologicos.py`)
+*   **Segmento:** Topología y Exploración.
+*   **Función:** Dibuja bi-grafos en 2D UMAP del espacio topológico. Renderiza la conexión de fuerzas de los Clusters Ciudadanos atados interactuando con los Documentos Legales de Consulta que el equipo incrustó. Almacena en memoria Resortes y repulsiones `NetworkX`.
 
 ### 3. 🔬 Analítica Avanzada (`3_Analitica_Avanzada.py`)
-*   **Usuarios:** Científico de Datos (Data Scientist).
-*   **Función:** Controles puros sobre el modelo. Renderizado interactivo WebGL en 3D del Universo de embeddings. Generador Termodinámico TF-IDF para extraer el vocabulario puro de la participación colombiana filtrando el ruido burocrático, además de cruzar heatmaps con variables sociodemográficas.
+*   **Segmento:** Topología y Exploración.
+*   **Función:** Entorno profundo en 3 Dimensiones que dibuja la totalidad del Universo Geométrico (1,701 ciudadanías). Incorpora el Motor TF-IDF Categórico, los heatmaps analíticos sociodemográficos (Zonas, Complejidad) y el buscador Vectorial Coseno profundo (Similaridad).
 
-### 4. ⚙️ Panel Admin (`4_Administracion.py`)
-*   **Usuarios:** Ingenieros / Data.
-*   **Función:** Tablero de Control y Mantenimiento de la App.
-*   **Valor MLOps:** Descentraliza el código crudo. Permite subir `Arrastrando con el Ratón` nuevos Excels `.xlsx` futuros de las R40 y múltiples nuevos PDF. Incluye el Botón Maestro para accionar la red neuronal subyacente (`analysis.py`) y dictaminar cuándo se exportará de regreso la sábana final Excel de Resultados.
+### 4. 💾 Consola Admin MLOps (`4_Administracion.py`)
+*   **Segmento:** Gestión Administrativa.
+*   **Función:** Interfaz Master. Permite arrastrar el "Data Lake" primario, inyectar docenas de textos legales en PDFs (Base Documental) y desencadenar a voluntad los scripts en Python de *Machine Learning* Pesado que vuelven a iterar a 384 dimensiones toda la plataforma.
 
-### 5. 🩺 Monitor de Calidad (`5_Monitor_Calidad.py`)
-*   **Usuarios:** Auditor / Administrador MLOps.
-*   **Función:** Observabilidad ("Observability").
-*   **Valor MLOps:** Sistema automatizado de semáforos temporales. Audita si los *Timestamps* de los PDFs añadidos o del Excel original se desfasaron contra el Caché en memoria de la Topología y del RAG. Previene que el equipo jurídico despache respuestas que estén usando regulaciones viejas de memoria.
+### 5. 🩺 Salud del Orquestador (`5_Monitor_Calidad.py`)
+*   **Segmento:** Gestión Administrativa.
+*   **Función:** Verificador de Estados o Semáforo Forense. Calcula que los timestaps de Excel entrante, Scripts de salida (TDA.xlsx) y la Base RAG de entrenamiento coincidan. De lo contrario, impide el flujo lanzando Alertas (Rojas/Amarillas) de Desfase o "Alucinación de Memoria".
 
-### 6. 🤖 Generador de Borradores (`6_Generador_Borradores.py`)
-*   **Usuarios:** Abogados / Redactores.
-*   **Función:** Conexión estricta a Google Gemini LLM API con `Temperature=0.0`.
-*   **Valor MLOps:** Asimilación "Few-Shot Learning". Permite subir PDFs humanos históricos a una carpeta de entrenamiento para mimetizar el tono institucional de la entidad. Usando el contexto RAG + Estrategia, dicta una carta en milisegundos sin inventar artículos falsos (Restricción Anti-Alucinación).
+### 6. 🤖 LLM Cero-Alucinación (`6_Generador_Borradores.py`)
+*   **Segmento:** Flujo de Acción Institucional.
+*   **Función:** Sala redactora automática. El Agente Gemini API usa la estrategia previamente curada, restringe creativamente al robot para evitar inventos (Temperature=0.0) y aplica un clonado ("Few-Shot Learning") del tono de escritura a partir de las viejas respuestas oficiales humanas incrustadas (`entrenamiento_de_respuestas/`).
 
-### 7. 😡 Analizador Térmico de Sentimiento (`7_Analisis_Sentimiento.py`)
-*   **Usuarios:** Asesores Conceptuales / Comunicaciones.
-*   **Función:** Barrido Lexicográfico por Tópico.
-*   **Valor MLOps:** Mide la fricción (Indignación, Neutralidad, Apoyo) segmentándola por regiones o por macro-temas. Permite encontrar a 1 clic los comentarios hirvientes y ubica visualmente si ciertos artículos están generando mayor explosión emocional ciudadana.
+### 7. 🌡️ Auditoría Térmica (`7_Analisis_Sentimiento.py`)
+*   **Segmento:** Topología y Exploración.
+*   **Función:** Lexical de fricción estática o LLM. Calcula qué poblaciones o zonas nacionales portan mayor carga térmica negativa o "Indignación" y neutralidad, previniendo al comunicador que su misiva va con un nivel emocional alto.
 
-### 8. 🔬 Explorador de Micro-Clústeres (`8_Explorador_Microclusters.py`)
-*   **Usuarios:** Científico de Datos / Analista Predictivo.
-*   **Función:** Deep Dive K-Means recursivo.
-*   **Valor MLOps:** Una lupa matemática. Aisla 1 solo Clúster Nacional, borra al resto del país, re-procesa a 384 dimensiones solo a esos usuarios con Distancia de Coseno, y los hiper-fractura dictaminando los matices subterráneos de un dolor en común.
+### 8. 🔍 Lente Micro-Clústeres (`8_Explorador_Microclusters.py`)
+*   **Segmento:** Topología y Exploración.
+*   **Función:** Descompone fracturadamente a los macro-tópicos y recarga K-Means. Útil para desmembrar si dos grupos poblacionales discuten el mismo tema legal internamente pero con posturas absolutamente diferentes o distantes.
 
-### 9. 👤 Consultas Individuales (`9_Consultas_Individuales.py`)
-*   **Usuarios:** Equipo de Apoyo Jurídico / Coordinadores.
-*   **Función:** Gestión del descarte topológico (`Clúster -1`).
-*   **Valor MLOps:** En los sistemas analíticos ciudadanos, no todo encaja en consensos masivos ("Clústeres"). Esta interfaz rescata las "Anomalías Aisladas" —participaciones con peticiones hiper-específicas o únicas que el algoritmo descartó de la masa grupal. El módulo tabula estos casos, grafica su origen y permite exportarlos para que el Jurídico proceda con respuestas "Uno a Uno", cumpliendo con el derecho de petición individual protegido por ley.
+### 9. 👤 Casos Singulares - Ruido (`9_Consultas_Individuales.py`)
+*   **Segmento:** Flujo de Acción Institucional.
+*   **Función:** Bandeja de "Anomalías No Asociadas" (-1 HDBSCAN). Todo ciudadano cuyos datos no logren densificarse junto a otro grupo pero el sistema exija legalmente dar un dictamen final (Una tutela, reclamo propio) aterriza aquí para que el perito no deje observaciones de "Ruido Matemático" convertidas en Silencio Administrativo.
 
 ---
-**Estatus:** El Sistema se encuentra completamente documentado, consolidado (Git versionado) y funcional para un Despliegue en Producción Institucional a partir de Marzo de 2026.
+**Estatus Actual:** Plataforma de producción validada, rediseñada y robustamente documentada a Marzo de 2026. Operable.
