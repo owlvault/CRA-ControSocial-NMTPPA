@@ -89,7 +89,7 @@ with col3:
 
 st.divider()
 
-col4, col5 = st.columns(2)
+col4, col5, col6 = st.columns(3)
 
 with col4:
     st.markdown("""
@@ -110,6 +110,16 @@ with col5:
     """, unsafe_allow_html=True)
     if st.button("Ir a Monitor de Calidad", use_container_width=True, type="primary"):
         st.switch_page("pages/5_Monitor_Calidad.py")
+
+with col6:
+    st.markdown("""
+    <div class="card">
+        <h3>🤖 Generador de Borradores</h3>
+        <p>Integración con Inteligencia Artificial Generativa (LLM). Redacta automáticamente los borradores de las respuestas oficiales de la CRA a partir del análisis previo y PDFs humanos.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    if st.button("Ir a Generador de Borradores", use_container_width=True, type="primary"):
+        st.switch_page("pages/6_Generador_Borradores.py")
 
 st.divider()
 
