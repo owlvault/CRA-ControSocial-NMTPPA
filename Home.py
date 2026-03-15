@@ -152,12 +152,12 @@ col9, col10 = st.columns(2)
 with col9:
     st.markdown("""
     <div class="card">
-        <h3>🗑️ Analizador de Anormalidades y Ruido</h3>
-        <p>Herramienta NLP de Depuración. Mide el descarte del algoritmo (Clúster -1) permitiendo auditar visual y lexicamente el contenido que la IA aisló por considerarlo ruido metodológico.</p>
+        <h3>👤 Consultas Individuales</h3>
+        <p>Herramienta NLP de Administración. Gestiona el descarte del algoritmo (Clúster -1), transformando las anormalidades en una bandeja de "Casos Atípicos" que deben responderse uno por uno.</p>
     </div>
     """, unsafe_allow_html=True)
-    if st.button("Ir a Analizador de Ruido", use_container_width=True, type="primary"):
-        st.switch_page("pages/9_Analizador_Ruido.py")
+    if st.button("Ir a Consultas Individuales", use_container_width=True, type="primary"):
+        st.switch_page("pages/9_Consultas_Individuales.py")
 
 st.divider()
 

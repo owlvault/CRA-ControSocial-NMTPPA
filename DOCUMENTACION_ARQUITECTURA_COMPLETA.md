@@ -53,10 +53,10 @@ El sistema opera bajo un pipeline lineal paramétrico. Las entradas asíncronas 
 *   **Función:** Deep Dive K-Means recursivo.
 *   **Valor MLOps:** Una lupa matemática. Aisla 1 solo Clúster Nacional, borra al resto del país, re-procesa a 384 dimensiones solo a esos usuarios con Distancia de Coseno, y los hiper-fractura dictaminando los matices subterráneos de un dolor en común.
 
-### 9. 🗑️ Analizador de Anormalidades y Ruido (`9_Analizador_Ruido.py`)
-*   **Usuarios:** Abuso de Datos / Data Janitor (Curador).
-*   **Función:** Análisis de `Clúster -1`.
-*   **Valor MLOps:** Ningún Pipeline de MLOps en la vida real da 100% de fiabilidad. Esta pestaña expone lo que el algoritmo rechazó, grafica los "errores o insultos" e indica a la gerencia si el índice de ruido se mantiene en márgenes teóricos o si se requirió limpieza profunda de la base cruda.
+### 9. 👤 Consultas Individuales (`9_Consultas_Individuales.py`)
+*   **Usuarios:** Equipo de Apoyo Jurídico / Coordinadores.
+*   **Función:** Gestión del descarte topológico (`Clúster -1`).
+*   **Valor MLOps:** En los sistemas analíticos ciudadanos, no todo encaja en consensos masivos ("Clústeres"). Esta interfaz rescata las "Anomalías Aisladas" —participaciones con peticiones hiper-específicas o únicas que el algoritmo descartó de la masa grupal. El módulo tabula estos casos, grafica su origen y permite exportarlos para que el Jurídico proceda con respuestas "Uno a Uno", cumpliendo con el derecho de petición individual protegido por ley.
 
 ---
 **Estatus:** El Sistema se encuentra completamente documentado, consolidado (Git versionado) y funcional para un Despliegue en Producción Institucional a partir de Marzo de 2026.
