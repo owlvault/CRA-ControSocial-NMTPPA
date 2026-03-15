@@ -214,7 +214,22 @@ with tab3:
         return pd.DataFrame(top_words_list)
 
     df_words = extract_top_words(df, top_n_terms)
-    st.dataframe(df_words, use_container_width=True, hide_index=True)
+    
+    col_t1, col_t2 = st.columns([3, 1])
+    with col_t1:
+        st.dataframe(df_words, use_container_width=True, hide_index=True)
+    with col_t2:
+        if not df_words.empty:
+            csv_data = df_words.to_csv(index=False).encode('utf-8')
+            st.download_button(
+                label="📥 Exportar Lexicón (CSV)",
+                data=csv_data,
+                file_name="lexicon_tda_cra.csv",
+                mime="text/csv",
+                type="primary",
+                use_container_width=True,
+                help="Descarga el diccionario semántico para anexos técnicos."
+            )
 
 with tab4:
     st.subheader("🔎 Búsqueda Semántica Vectorial")
@@ -239,4 +254,16 @@ with tab4:
                 })
             
             res_df = pd.DataFrame(results)
+            
+            st.success(f"Top 15 participaciones más cercanas al vector de búsqueda.")
             st.dataframe(res_df, use_container_width=True, hide_index=True)
+            
+            csv_res = res_df.to_csv(index=False).encode('utf-8')
+            st.download_button(
+                label="📥 Exportar Hallazgos Vectoriales (CSV)",
+                data=csv_res,
+                file_name="busqueda_semantica_cra.csv",
+                mime="text/csv",
+                type="primary",
+                help="Descarga específica de estas participaciones para gestión 1-a-1."
+            )

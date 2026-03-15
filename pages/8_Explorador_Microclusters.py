@@ -188,3 +188,14 @@ if 'df_sub_analyzed' in st.session_state:
     casos = df_res[df_res['Micro_Cluster'] == matiz_idx]
     
     st.dataframe(casos[['Consulta', 'ZONA', 'Nivel de compejidad', 'Grupo de Valor']], use_container_width=True, hide_index=True)
+
+    # Botón de Descarga
+    csv_micro = casos.to_csv(index=False).encode('utf-8')
+    st.download_button(
+        label=f"📥 Exportar Facción {matiz_idx} (CSV)",
+        data=csv_micro,
+        file_name=f"micro_cluster_{cluster_idx}_faccion_{matiz_idx}.csv",
+        mime="text/csv",
+        type="primary",
+        help="Permite la extracción aislada de la facción para ser delegada al marco jurídico."
+    )

@@ -211,5 +211,18 @@ with colB:
                     st.text_area("Cuerpo Legal del Borrador (Exportar a Microsoft Word):", value=response.text, height=450)
                     st.markdown("""</div>""", unsafe_allow_html=True)
                     
+                    st.markdown("<br>", unsafe_allow_html=True)
+                    md_draft = response.text.encode('utf-8')
+                    st.download_button(
+                        label=f"📥 Descargar Borrador Oficial (.md)",
+                        data=md_draft,
+                        file_name=f"Borrador_Respuesta_Cluster_{c_data['identificador']}.md",
+                        mime="text/markdown",
+                        type="primary",
+                        use_container_width=True,
+                        help="Descargue el archivo Markdown, el cual es directamente compatible con Microsoft Word y preservar formato."
+                    )
+                    st.markdown("""</div>""", unsafe_allow_html=True)
+                    
                 except Exception as e:
                     st.error(f"Falla inter-nodo con la API Generativa: {str(e)}")
