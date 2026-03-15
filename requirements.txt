@@ -13,3 +13,4 @@ umap-learn
 bokeh
 matplotlib
 google-generativeai
+textblob

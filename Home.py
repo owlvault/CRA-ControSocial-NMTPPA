@@ -123,6 +123,20 @@ with col6:
 
 st.divider()
 
+col7, col8 = st.columns(2)
+
+with col7:
+    st.markdown("""
+    <div class="card">
+        <h3>😡 Analizador Térmico de Sentimiento</h3>
+        <p>NLP Lingüístico. Mide el nivel de fricción, indignación o neutralidad de los ciudadanos agrupados por Clúster para calibrar el tono de respuesta legal.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    if st.button("Ir a Analizador Térmico", use_container_width=True, type="primary"):
+        st.switch_page("pages/7_Analisis_Sentimiento.py")
+
+st.divider()
+
 st.markdown("### 📚 Información del Proyecto")
 st.markdown("""
 Este proyecto es producto del despliegue masivo y automatizado de Modelos Languaje Natural (Transformers) sobre 1,701 consultas del sector social.
