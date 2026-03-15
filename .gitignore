@@ -1,0 +1,18 @@
+# Entornos Virtuales
+venv/
+.env/
+__pycache__/
+*.pyc
+
+# Archivos de depuración de este proyecto
+check_columns.py
+check_rows.py
+check_sheets.py
+output_excel.txt
+
+# Base de datos local transitoria
+asignaciones_equipo.json
+
+# (Opcional) si no quieres subir la Base de Conocimiento a Github, descomenta:
+# Base de Conocimiento/
+# *.xlsx

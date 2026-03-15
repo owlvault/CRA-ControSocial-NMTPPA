@@ -1,0 +1,14 @@
+pandas
+openpyxl
+pdfplumber
+sentence-transformers
+scikit-learn
+hdbscan
+numpy
+scipy
+streamlit
+plotly
+networkx
+umap-learn
+bokeh
+matplotlib
