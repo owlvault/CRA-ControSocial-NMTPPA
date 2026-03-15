@@ -139,15 +139,24 @@ with colB:
                     
                     # Prompt engineering
                     prompt = f"""
-                    Actúa como un Abogado Senior y Redactor Legal Experto de la Comisión de Regulación de Agua Potable y Saneamiento Básico (CRA) de Colombia.
-                    Tu tarea es redactar una carta formal de respuesta para responder masivamente a un grupo ciudadano que participó en la construcción del Nuevo Marco Tarifario (NMTPPA).
+                    ====================================
+                    SISTEMA DE REDACCIÓN LEGAL ESTRICTA - DIRECTRICES DE CERO-ALUCINACIÓN
+                    ====================================
+                    Actúa EXCLUSIVAMENTE como un Abogado Senior y Redactor Legal Experto de la Comisión de Regulación de Agua Potable y Saneamiento Básico (CRA) de Colombia.
+                    Tu tarea es redactar el cuerpo de una carta formal de respuesta para responder a un grupo ciudadano que participó en la construcción del Nuevo Marco Tarifario (NMTPPA).
+                    
+                    REGLAS CRÍTICAS (DE OBLIGATORIO CUMPLIMIENTO):
+                    1. CERO ALUCINACIÓN LEGAL: NO INVENTES, infieras, ni supongas leyes, decretos, números de resolución, artículos o jurisprudencia. 
+                    2. FUENTE ÚNICA DE VERDAD: Si vas a citar o mencionar sustento jurídico, DEBES usar ÚNICAMENTE el texto proporcionado abajo en "ARTÍCULOS O SUSTENTO JURÍDICO A INCLUIR/MENCIONAR".
+                    3. LÍMITE DE RESPUESTA: Si los artículos provistos no responden completamente la pregunta ciudadana, limita tu redacción a una respuesta parcial institucional e indica explícitamente que "el resto de la inquietud se encuentra bajo estudio detallado por el equipo técnico", sin inventar la solución.
+                    4. ESTRUCTURA: Mantén un tono formal institucional.
                     
                     A CONTINUACIÓN EL CONTEXTO OBTENIDO DEL NLP:
                     - TEMA DE LA CIUDADANÍA: {c_data['tema']}
                     - SÍNTESIS DEL RECLAMO SOCIAL: {c_data['sintesis']}
                     - ESTRATEGIA DE COMUNICACIÓN SUGERIDA: {c_data['estrategia']}
                     
-                    - ARTÍCULOS O SUSTENTO JURÍDICO A INCLUIR/MENCIONAR:
+                    - ARTÍCULOS O SUSTENTO JURÍDICO A INCLUIR/MENCIONAR (USAR SOLO ESTO):
                     {c_data['sustento']}
                     """
                     
@@ -156,18 +165,25 @@ with colB:
                         
                         A CONTINUACIÓN ALGUNAS RESPUESTAS LEGALES ANTERIORES PARA QUE REPLIQUES EXACTAMENTE EL TONO INSTITUCIONAL, Y SU SALUDO/DESPEDIDA:
                         (Ignora los temas específicos de estos ejemplos, solo imita su tono, seriedad y estructura gramatical):
-                        {human_style[:3000]} # Limitamos a los primeros 3000 caracteres para no exceder tokens prematuramente.
+                        {human_style[:3000]}
                         """
                         
                     prompt += """
                     
                     INSTRUCCIONES FINALES:
-                    Redacta ÚNICAMENTE el cuerpo de la carta de respuesta. Debe ser profesional, clara, asertiva y cordial, justificando la postura de la CRA con los artículos brindados, y respondiendo la inquietud central.
+                    Redacta ÚNICAMENTE el cuerpo de la carta de respuesta. Debe ser profesional, clara, asertiva y cordial, justificando la postura de la CRA estrictamente con los artículos brindados, y respondiendo la inquietud central.
                     """
                     
-                    # Modelo
+                    # Modelo con Temperature 0 para máximo determinismo y minimizar creatividad/alucinaciones
                     model = genai.GenerativeModel('gemini-1.5-flash')
-                    response = model.generate_content(prompt)
+                    response = model.generate_content(
+                        prompt,
+                        generation_config=genai.types.GenerationConfig(
+                            temperature=0.0,
+                            top_p=0.95,
+                            top_k=20
+                        )
+                    )
                     
                     st.success("✅ Generación Completada")
                     st.markdown("### Borrador Oficial Obtenido:")
